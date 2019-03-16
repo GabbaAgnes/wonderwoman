@@ -1,61 +1,29 @@
-// const Entry = require('../models/entries');
+const Entry  = require('../models/entries');
 
-// // const jwt = require('jsonwebtoken');
+//Add Entry
+exports.addEntry = function(req, res, next) {
+    console.log('sweet potato', req.body.recipe);
+    let entry = new Entry(req.body.recipe);
+    //entry['userId'] = req.user.id;
+    entry.save();
+    return res.json({
+       data: '$$$$$$'
+    });
+};
 
-// const config = require('../config');
+exports.findEntries = function(req, res, next) {
+    Entry.find().then(allEntries=>{ 
+        return res.json({
+            allEntries
+        })
+    });
+}
 
+exports.deleteCardFromDB =function(req, res, next){
+     console.log("deleteCardFromDB",req.body);
+       Entry.remove({_id:req.body.cardToDelete}).then(res=>{
+            return res.json({res})
 
+       });
 
-
-// //Add Entry
-// // exports.addEntry = function(req, res, next) {
-// //   console.log('tangerine');
-// //   console.log(req.body);
-// //   let entry = new Entry(req.body.entries);
-// //   console.log(req.user);
-// //   entry.save();
-// //   return res.status(200).json({message: 'return this for socket.io'});
-// // };
-// exports.addEntry = function(req, res, next) {
-
-//   // const authToken = createAuthToken(req.user.apiRepr());
-//   console.log('avocado');
-//   console.log(req.body);
-//   console.log(req.body.entry);
-//   // res.json({authToken});
-// 	let entry = new Entry(req.body.entry);
-// 	//   console.log(req.user);
-// 	  entry.save();
-// 	  return res.status(200).json({message: 'return this for socket.io'});
-// };
-
-
-// //Find All Entries
-// exports.findAllEntries = function(req, res, next) {
-// 	console.log('olive');
-// 	console.log(req.user);
-// 	Entry.find({})
-// 		.exec((err, entries) => {
-// 	    if (err) {
-// 	      res.send({ error: err });
-// 	      return next(err);
-// 	    }
-// 	    return res.status(200).json({ entries: entries });
-// 	})
-// }
-
-// //Get User
-// // exports.findUser = function(req, res, next) {
-// // 	console.log(req.user);
-// // 	console.log('raspberry');
-// // 	Entry.find({})
-// // 		.exec((err, entries) => {
-// // 	    if (err) {
-// // 	      res.send({ error: err });
-// // 	      return next(err);
-// // 	    }
-// // 	    return res.status(200).json({ entries: entries });
-// // 	})
-// // }
-
-
+}

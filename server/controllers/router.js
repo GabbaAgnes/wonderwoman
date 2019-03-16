@@ -23,6 +23,11 @@ router.post('/login', passport.authenticate('basic', {session: false}), AuthCont
 router.post('/refresh', passport.authenticate('jwt', {session: false}), AuthController.refresh);
 
 //Add Entry
-router.post('/add', [passport.authenticate('jwt', {session: false}), jsonParser],UsersController.addEntry);
+router.post('/add',jsonParser,EntryController.addEntry);
+router.get('/get',jsonParser,EntryController.findEntries);
+
+//delete
+
+router.delete('/deleteCard',jsonParser,EntryController.deleteCardFromDB);
 
 module.exports = {router, basicStrategy, jwtStrategy};
