@@ -55,13 +55,17 @@ app.get(
  //   return res.status(404).json({message: 'Not Found'});
 //});
 //console.log("giraff",__dirname + "/public/index.html")
-//app.use("*",(req, res, next) => {
-  // If no routes match, send them the React HTML.
-  //res.sendFile(__dirname + "/public/index.html");
-//});
 
-console.log("giraff",path.join(__dirname, "/public/index.html"))
-app.use(express.static(path.join(__dirname, "/public/index.html")));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use("*",(req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+
+console.log("corgie",path.join(__dirname, "/public/index.html"))
+//app.use(express.static(path.join(__dirname, "/public/index.html")));
 // Referenced by both runServer and closeServer. closeServer
 // assumes runServer has run and set `server` to a server object
 let server;
