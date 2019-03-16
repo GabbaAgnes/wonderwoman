@@ -5,8 +5,10 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 const jsonParser = bodyParser.json();
-
+const path = require('path')
 const {router: Router, basicStrategy, jwtStrategy} = require('./controllers/router');
+
+
 
 mongoose.Promise = global.Promise;
 
@@ -52,11 +54,14 @@ app.get(
 //app.use('*', (req, res) => {
  //   return res.status(404).json({message: 'Not Found'});
 //});
-console.log("giraff",__dirname + "/public/index.html")
-app.use("*",(req, res, next) => {
+//console.log("giraff",__dirname + "/public/index.html")
+//app.use("*",(req, res, next) => {
   // If no routes match, send them the React HTML.
-  res.sendFile(__dirname + "/public/index.html");
-});
+  //res.sendFile(__dirname + "/public/index.html");
+//});
+
+console.log("giraff",path.join(__dirname, "/public/index.html"))
+app.use(express.static(path.join(__dirname, "/public/index.html")));
 // Referenced by both runServer and closeServer. closeServer
 // assumes runServer has run and set `server` to a server object
 let server;
