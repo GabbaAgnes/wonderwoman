@@ -49,10 +49,14 @@ app.get(
 );
 
 
-app.use('*', (req, res) => {
-    return res.status(404).json({message: 'Not Found'});
-});
+//app.use('*', (req, res) => {
+ //   return res.status(404).json({message: 'Not Found'});
+//});
 
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 // Referenced by both runServer and closeServer. closeServer
 // assumes runServer has run and set `server` to a server object
 let server;
